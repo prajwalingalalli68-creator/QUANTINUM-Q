@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUANTINUM-Q</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+              mono: ['Fira Code', 'monospace'],
+            },
+            colors: {
+              qaccent: '#00f2ff',
+              qpink: '#ff007a',
+              qgreen: '#00ffaa',
+              qyellow: '#ffe600',
+              qpurple: '#bc00ff',
+              qbg: '#050505',
+              cosmos: {
+                50: '#f0f4ff',
+                100: '#e0e9fe',
+                200: '#c6d6fe',
+                300: '#a3b8fd',
+                400: '#7c90fb',
+                500: '#5c67f6',
+                600: '#4649ed',
+                700: '#3939d8',
+                800: '#3231af',
+                900: '#2d2e8b',
+                950: '#0a0a14',
+              },
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'spin-slow': 'spin 10s linear infinite',
+              'spectrum': 'spectrum 8s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              spectrum: {
+                '0%, 100%': { transform: 'scale(1) translate(0, 0)', opacity: 0.3 },
+                '33%': { transform: 'scale(1.1) translate(20px, -20px)', opacity: 0.5 },
+                '66%': { transform: 'scale(0.9) translate(-20px, 20px)', opacity: 0.4 },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #050505;
+        color: white;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: rainbow 5s linear infinite;
+      }
+      @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+      .animate-rainbow-bg {
+        background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+        background-size: 1400% 1400%;
+        animation: rainbow-bg 30s ease infinite;
+      }
+      @keyframes rainbow-bg {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .studio-canvas {
+        background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      
+      @keyframes gradient-text {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      .animate-gradient-text {
+        background: linear-gradient(90deg, #22d3ee, #818cf8, #c084fc, #22d3ee);
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradient-text 5s ease infinite;
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(34, 211, 238, 0.3);
+        border-radius: 10px;
+      }
+
+      /* Battery Saver Styles to stop animations and CPU-intensive visual loops */
+      .cosmic-battery-saver-active,
+      .cosmic-battery-saver-active * {
+        animation-duration: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0s !important;
+      }
+      .cosmic-battery-saver-active .animate-pulse,
+      .cosmic-battery-saver-active .animate-bounce,
+      .cosmic-battery-saver-active .animate-rainbow-bg,
+      .cosmic-battery-saver-active .animate-gradient-text,
+      .cosmic-battery-saver-active .animate-spin-slow,
+      .cosmic-battery-saver-active .animate-spectrum {
+        animation: none !important;
+        transform: none !important;
+      }
+      
+      /* Reading Mode Styles - Sepia eye comfort warming overlay */
+      .cosmic-reading-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background-color: rgba(245, 158, 11, 0.05);
+        mix-blend-mode: multiply;
+        transition: opacity 0.5s ease-in-out;
+      }
+      
+      /* Hide scrollbar helper */
+      .scrollbar-none::-webkit-scrollbar {
+        display: none !important;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => {
+            console.log('[Service Worker] Registered successfully:', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('[Service Worker] Registration failed:', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
