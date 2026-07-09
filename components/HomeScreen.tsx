@@ -712,7 +712,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onEnter, isPremium, onUn
   };
 
   const isLight = themeMode === ThemeMode.LIGHT;
-  const isColourful = themeMode === ThemeMode.COLOURFUL;
+  const isColourful = themeMode === ThemeMode.COLORFUL;
 
   return (
     <div 

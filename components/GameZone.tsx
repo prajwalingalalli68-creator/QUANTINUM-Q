@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 
+const ChessboardComponent = Chessboard as any;
+
 export const GameZone: React.FC = () => {
   const [activeGame, setActiveGame] = useState<'NONE' | 'TIC_TAC_TOE' | 'CHESS' | 'LUDO'>('NONE');
 
@@ -182,7 +184,7 @@ const ChessGame = ({ onBack }: { onBack: () => void }) => {
       </div>
       
       <div className="w-full bg-white/5 p-4 rounded-2xl border border-white/10 shadow-2xl">
-        <Chessboard 
+        <ChessboardComponent 
           position={game.fen()} 
           onPieceDrop={onDrop}
           customBoardStyle={{

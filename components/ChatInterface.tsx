@@ -155,7 +155,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       case View.COSMIC_LINK: return 'COSMIC_LINK';
       case View.TRANSLATOR: return 'TRANSLATOR';
       case View.DICTIONARY: return 'DICTIONARY';
-      case View.PRESENTATION_VIEW: return 'PRESENTATION';
+      case View.COSMIC_POWER_POINT: return 'PRESENTATION';
       case View.PROJECT_MAKER: return 'PROJECT_MAKER';
       case View.COUNTRY_INTEL: return 'COUNTRY_INTEL';
       case View.COSMIC_PAPER_GEN: return 'COSMIC_PAPER_GEN';
@@ -702,32 +702,32 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
                           <span className="truncate tracking-wide font-medium">
                             {progress < 25 ? (
-                              currentView === View.COSMIC_WORD ? 'Initializing Cosmic Word Engine...' :
-                              currentView === View.COSMIC_EXCEL ? 'Loading Cosmic Excel Spreadsheet Parser...' :
-                              currentView === View.PYTHON ? 'Bootstrapping Pyodide sandbox container...' :
-                              currentView === View.IMAGE_GEN ? 'Warming up Diffusion weights...' :
-                              currentView === View.VIDEO_GEN ? 'Calibrating CineFlow rendering pipeline...' :
+                              (currentView as any) === View.COSMIC_WORD ? 'Initializing Cosmic Word Engine...' :
+                              (currentView as any) === View.COSMIC_EXCEL ? 'Loading Cosmic Excel Spreadsheet Parser...' :
+                              (currentView as any) === View.PYTHON ? 'Bootstrapping Pyodide sandbox container...' :
+                              (currentView as any) === View.IMAGE_GEN ? 'Warming up Diffusion weights...' :
+                              (currentView as any) === View.VIDEO_GEN ? 'Calibrating CineFlow rendering pipeline...' :
                               'Initializing AI sub-routine...'
                             ) : progress < 55 ? (
-                              currentView === View.COSMIC_WORD ? 'Analyzing context structures & prose blueprints...' :
-                              currentView === View.COSMIC_EXCEL ? 'Synthesizing formulas and sheet data columns...' :
-                              currentView === View.PYTHON ? 'Compiling AST and loading Python modules...' :
-                              currentView === View.IMAGE_GEN ? 'De-noising latent matrices (Step 15/30)...' :
-                              currentView === View.VIDEO_GEN ? 'Interpolating temporal flow vectors...' :
+                              (currentView as any) === View.COSMIC_WORD ? 'Analyzing context structures & prose blueprints...' :
+                              (currentView as any) === View.COSMIC_EXCEL ? 'Synthesizing formulas and sheet data columns...' :
+                              (currentView as any) === View.PYTHON ? 'Compiling AST and loading Python modules...' :
+                              (currentView as any) === View.IMAGE_GEN ? 'De-noising latent matrices (Step 15/30)...' :
+                              (currentView as any) === View.VIDEO_GEN ? 'Interpolating temporal flow vectors...' :
                               'Synthesizing knowledge graph embeddings...'
                             ) : progress < 85 ? (
-                              currentView === View.COSMIC_WORD ? 'Rendering high-fidelity document layout...' :
-                              currentView === View.COSMIC_EXCEL ? 'Injecting pivot arrays & table styling schema...' :
-                              currentView === View.PYTHON ? 'Executing safe main-thread interpreter...' :
-                              currentView === View.IMAGE_GEN ? 'Up-scaling pixel fidelity to ultra-HD...' :
-                              currentView === View.VIDEO_GEN ? 'Compiling high-frame-rate MP4/WebM slices...' :
+                              (currentView as any) === View.COSMIC_WORD ? 'Rendering high-fidelity document layout...' :
+                              (currentView as any) === View.COSMIC_EXCEL ? 'Injecting pivot arrays & table styling schema...' :
+                              (currentView as any) === View.PYTHON ? 'Executing safe main-thread interpreter...' :
+                              (currentView as any) === View.IMAGE_GEN ? 'Up-scaling pixel fidelity to ultra-HD...' :
+                              (currentView as any) === View.VIDEO_GEN ? 'Compiling high-frame-rate MP4/WebM slices...' :
                               'Formatting output stream...'
                             ) : progress < 98 ? (
-                              currentView === View.COSMIC_WORD ? 'Polishing typography and formatting tags...' :
-                              currentView === View.COSMIC_EXCEL ? 'Finalizing column widths and chart data...' :
-                              currentView === View.PYTHON ? 'Finalizing print buffers and stdout streams...' :
-                              currentView === View.IMAGE_GEN ? 'Applying contrast & aesthetic color correction...' :
-                              currentView === View.VIDEO_GEN ? 'Running temporal antialiasing filters...' :
+                              (currentView as any) === View.COSMIC_WORD ? 'Polishing typography and formatting tags...' :
+                              (currentView as any) === View.COSMIC_EXCEL ? 'Finalizing column widths and chart data...' :
+                              (currentView as any) === View.PYTHON ? 'Finalizing print buffers and stdout streams...' :
+                              (currentView as any) === View.IMAGE_GEN ? 'Applying contrast & aesthetic color correction...' :
+                              (currentView as any) === View.VIDEO_GEN ? 'Running temporal antialiasing filters...' :
                               'Securing and completing data handshake...'
                             ) : (
                               'Finalizing rendering. Output ready.'
@@ -754,7 +754,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-                        placeholder={currentView === View.BANNER_GEN ? "Describe the banner theme (e.g. AI Tech Conference)..." : "Transmit data..."}
+                        placeholder={(currentView as any) === View.BANNER_GEN ? "Describe the banner theme (e.g. AI Tech Conference)..." : "Transmit data..."}
                         className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 resize-none h-16 min-h-[64px] max-h-[200px] transition-all relative z-10 text-sm font-medium tracking-wide placeholder:text-white/20 custom-scrollbar"
                       />
                     </div>

@@ -88,7 +88,7 @@ export const DockAndTaskManager: React.FC<DockAndTaskManagerProps> = ({
   }, [runningApps, appState]);
 
   const isLight = themeMode === ThemeMode.LIGHT;
-  const isColourful = themeMode === ThemeMode.COLOURFUL;
+  const isColourful = themeMode === ThemeMode.COLORFUL;
 
   // Determine frequently used apps based on interaction counts
   const getFrequentlyUsedApps = (): AppRegistryItem[] => {
@@ -123,12 +123,12 @@ export const DockAndTaskManager: React.FC<DockAndTaskManagerProps> = ({
 
   // Compute total dynamic usage
   const baseSystemRam = 1.2 * 1024; // 1.2 GB base
-  const totalAppsRam = Object.values(processMetrics).reduce((sum, item) => sum + item.ram, 0);
+  const totalAppsRam = (Object.values(processMetrics) as { ram: number; cpu: number }[]).reduce((sum, item) => sum + item.ram, 0);
   const totalRamUsedGB = ((baseSystemRam + totalAppsRam) / 1024).toFixed(2);
   const totalRamPercent = Math.min(98, Number((((baseSystemRam + totalAppsRam) / 16384) * 100).toFixed(1)));
 
   const baseSystemCpu = 3.5;
-  const totalAppsCpu = Object.values(processMetrics).reduce((sum, item) => sum + item.cpu, 0);
+  const totalAppsCpu = (Object.values(processMetrics) as { ram: number; cpu: number }[]).reduce((sum, item) => sum + item.cpu, 0);
   const totalCpuPercent = Math.min(100, Number((baseSystemCpu + totalAppsCpu).toFixed(1)));
 
   // If Lock Screen is active, don't render dock
